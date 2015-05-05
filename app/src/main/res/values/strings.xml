@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SushiGo</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_maki">MakiActivity</string>
+    <string name="title_activity_scores">ScoresActivity</string>
+    <string name="title_activity_tempura">TempuraActivity</string>
+    <string name="title_activity_sashimi">SashimiActivity</string>
+    <string name="title_activity_dumpling">DumplingActivity</string>
+    <string name="title_activity_squid_nigiri">SquidNigiriActivity</string>
+    <string name="title_activity_salmon_nigiri">SalmonNigiriActivity</string>
+    <string name="title_activity_egg_nigiri">EggNigiriActivity</string>
+    <string name="title_activity_pudding">PuddingActivity</string>
+</resources>

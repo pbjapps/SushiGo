@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.tacotruck.sushigo" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MakiActivity"
+            android:label="@string/title_activity_maki" >
+        </activity>
+        <activity
+            android:name=".ScoresActivity"
+            android:label="@string/title_activity_scores" >
+        </activity>
+        <activity
+            android:name=".TempuraActivity"
+            android:label="@string/title_activity_tempura" >
+        </activity>
+        <activity
+            android:name=".SashimiActivity"
+            android:label="@string/title_activity_sashimi" >
+        </activity>
+        <activity
+            android:name=".DumplingActivity"
+            android:label="@string/title_activity_dumpling" >
+        </activity>
+        <activity
+            android:name=".SquidNigiriActivity"
+            android:label="@string/title_activity_squid_nigiri" >
+        </activity>
+        <activity
+            android:name=".SalmonNigiriActivity"
+            android:label="@string/title_activity_salmon_nigiri" >
+        </activity>
+        <activity
+            android:name=".EggNigiriActivity"
+            android:label="@string/title_activity_egg_nigiri" >
+        </activity>
+        <activity
+            android:name=".PuddingActivity"
+            android:label="@string/title_activity_pudding" >
+        </activity>
+    </application>
+
+</manifest>
