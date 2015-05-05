@@ -1,5 +1,6 @@
 package com.example.tacotruck.sushigo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class ScoresActivity extends ActionBarActivity {
+public class ScoresActivity extends Activity {
 
     TextView player1, player2;
     TextView maki, tempura, sashimi, dumplings, puddings, sqnigiri, salnigiri, eggnigiri;

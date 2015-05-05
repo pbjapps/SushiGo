@@ -12,4 +12,16 @@
     <string name="title_activity_salmon_nigiri">SalmonNigiriActivity</string>
     <string name="title_activity_egg_nigiri">EggNigiriActivity</string>
     <string name="title_activity_pudding">PuddingActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
+
+    <array name="sushi_list">
+        <item>"Maki"</item>
+        <item>"Tempura"</item>
+        <item>"Sashimi"</item>
+        <item>"Dumplings"</item>
+        <item>"Squid Nigiri"</item>
+        <item>"Salmon Nigiri"</item>
+        <item>"Egg Nigiri"</item>
+        <item>"Pudding"</item>
+    </array>
 </resources>

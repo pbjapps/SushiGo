@@ -1,5 +1,6 @@
 package com.example.tacotruck.sushigo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-public class SquidNigiriActivity extends ActionBarActivity {
+public class SquidNigiriActivity extends Activity {
 
     EditText count;
     Button next;
@@ -30,6 +31,18 @@ public class SquidNigiriActivity extends ActionBarActivity {
                     MakiActivity.currentPlayer.setSquidNigiri(currentTempura + Integer.parseInt(count.getText().toString()));
                 }
                 viewSashimiActivity();
+            }
+        });
+
+        Button back = (Button) findViewById(R.id.button7);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (count.getText() != null && !count.getText().toString().isEmpty()) {
+                    int currentTempura = MakiActivity.currentPlayer.getSquidNigiri();
+                    MakiActivity.currentPlayer.setSquidNigiri(currentTempura + Integer.parseInt(count.getText().toString()));
+                }
+                viewMainActivity();
             }
         });
     }
@@ -58,6 +71,11 @@ public class SquidNigiriActivity extends ActionBarActivity {
 
     public void viewSashimiActivity(){
         Intent myIntent = new Intent(SquidNigiriActivity.this, SalmonNigiriActivity.class);
+        SquidNigiriActivity.this.startActivity(myIntent);
+    }
+
+    public void viewMainActivity(){
+        Intent myIntent = new Intent(SquidNigiriActivity.this, MainActivity.class);
         SquidNigiriActivity.this.startActivity(myIntent);
     }
 }

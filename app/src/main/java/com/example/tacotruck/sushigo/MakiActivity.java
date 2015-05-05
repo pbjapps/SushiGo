@@ -1,5 +1,6 @@
 package com.example.tacotruck.sushigo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-public class MakiActivity extends ActionBarActivity {
+public class MakiActivity extends Activity {
 
     public static Player currentPlayer;
     Button next;
@@ -40,6 +41,18 @@ public class MakiActivity extends ActionBarActivity {
                 viewTempuraActivity();
             }
         });
+
+        Button back = (Button) findViewById(R.id.button7);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(count.getText() != null && !count.getText().toString().isEmpty()){
+                    int currentMaki = currentPlayer.getMakiRolls();
+                    currentPlayer.setMakiRolls(currentMaki + Integer.parseInt(count.getText().toString()));
+                }
+                viewMainActivity();
+            }
+        });
     }
 
     @Override
@@ -66,6 +79,11 @@ public class MakiActivity extends ActionBarActivity {
 
     public void viewTempuraActivity(){
         Intent myIntent = new Intent(MakiActivity.this, TempuraActivity.class);
+        MakiActivity.this.startActivity(myIntent);
+    }
+
+    public void viewMainActivity(){
+        Intent myIntent = new Intent(MakiActivity.this, MainActivity.class);
         MakiActivity.this.startActivity(myIntent);
     }
 }

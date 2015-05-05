@@ -1,5 +1,6 @@
 package com.example.tacotruck.sushigo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-public class PuddingActivity extends ActionBarActivity {
+public class PuddingActivity extends Activity {
 
     EditText count;
     Button next;
@@ -31,6 +32,18 @@ public class PuddingActivity extends ActionBarActivity {
                     MakiActivity.currentPlayer.setPuddings(currentTempura + Integer.parseInt(count.getText().toString()));
                 }
                 viewSashimiActivity();
+            }
+        });
+
+        Button back = (Button) findViewById(R.id.button7);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (count.getText() != null && !count.getText().toString().isEmpty()) {
+                    int currentTempura = MakiActivity.currentPlayer.getPuddings();
+                    MakiActivity.currentPlayer.setPuddings(currentTempura + Integer.parseInt(count.getText().toString()));
+                }
+                viewMainActivity();
             }
         });
     }
@@ -58,6 +71,11 @@ public class PuddingActivity extends ActionBarActivity {
     }
 
     public void viewSashimiActivity(){
+        Intent myIntent = new Intent(PuddingActivity.this, MainActivity.class);
+        PuddingActivity.this.startActivity(myIntent);
+    }
+
+    public void viewMainActivity(){
         Intent myIntent = new Intent(PuddingActivity.this, MainActivity.class);
         PuddingActivity.this.startActivity(myIntent);
     }

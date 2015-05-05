@@ -4,6 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#99CCFF"
     tools:context="com.example.tacotruck.sushigo.PuddingActivity">
 
     <TextView android:text="How Much Pudding?" android:layout_width="wrap_content"
@@ -38,6 +39,20 @@
         android:text="Done!"
         android:id="@+id/button4"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textColor="#C4C4D0"
+        android:background="@drawable/rounded_button_states"
+        android:minWidth="100dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/button7"
+        android:background="@drawable/rounded_button_states"
+        android:minWidth="100dp"
+        android:textColor="#C4C4D0"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView"
+        android:onClick="viewMainActivity"/>
 </RelativeLayout>

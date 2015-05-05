@@ -1,5 +1,8 @@
 package com.example.tacotruck.sushigo;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,11 +15,12 @@ import android.widget.Toast;
 import java.util.HashMap;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     private Button player1, player2, score;
     public static Player p1 = null;
     public static Player p2 = null;
+    private boolean isPlayer1;
     public static final HashMap nameToPlayer = new HashMap<String, Player>();
 
     @Override
@@ -36,6 +40,15 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
                 System.out.println("Player ONE was clicked");
                 viewMakiActivity(p1);
+            }
+        });
+
+        player1.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                isPlayer1 = true;
+                chooseCardType();
+                return false;
             }
         });
 
@@ -92,6 +105,44 @@ public class MainActivity extends ActionBarActivity {
         MainActivity.this.startActivity(myIntent);
     }
 
+    public void goToSushiType(int index){
+        Intent myIntent = null;
+        switch(index){
+            case 0:
+                myIntent = new Intent(MainActivity.this, MakiActivity.class);
+                break;
+            case 1:
+                myIntent = new Intent(MainActivity.this, TempuraActivity.class);
+                break;
+            case 2:
+                myIntent = new Intent(MainActivity.this, SashimiActivity.class);
+                break;
+            case 3:
+                myIntent = new Intent(MainActivity.this, DumplingActivity.class);
+                break;
+            case 4:
+                myIntent = new Intent(MainActivity.this, SquidNigiriActivity.class);
+                break;
+            case 5:
+                myIntent = new Intent(MainActivity.this, SalmonNigiriActivity.class);
+                break;
+            case 6:
+                myIntent = new Intent(MainActivity.this, EggNigiriActivity.class);
+                break;
+            case 7:
+                myIntent = new Intent(MainActivity.this, PuddingActivity.class);
+                break;
+        }
+        if(isPlayer1){
+            myIntent.putExtra("name", "player1");
+        }
+        else{
+//            myIntent.putExtra("name", player2.getName());
+        }
+
+        MainActivity.this.startActivity(myIntent);
+    }
+
     public void viewScoresActivity(){
         Intent myIntent = new Intent(MainActivity.this, ScoresActivity.class);
         MainActivity.this.startActivity(myIntent);
@@ -125,5 +176,25 @@ public class MainActivity extends ActionBarActivity {
     private void resetScores(){
         Player.resetScore(p1);
         Toast.makeText(MainActivity.this, "Scores have been reset!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void chooseCardType(){
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        new AlertDialog.Builder(this)
+                .setTitle("Pick a sushi to score")
+                .setItems(R.array.sushi_list, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(MainActivity.this, which + "", Toast.LENGTH_SHORT).show();
+                        goToSushiType(which);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+            .show();
     }
 }
