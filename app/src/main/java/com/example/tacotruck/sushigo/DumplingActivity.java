@@ -28,8 +28,8 @@ public class DumplingActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int currentTempura = MakiActivity.currentPlayer.getDumplings();
-                    MakiActivity.currentPlayer.setDumplings(currentTempura + Integer.parseInt(count.getText().toString()));
+                    int currentTempura = MainActivity.currentPlayer.getDumplings();
+                    MainActivity.currentPlayer.setDumplings(currentTempura + Integer.parseInt(count.getText().toString()));
                 }
                 viewSashimiActivity();
             }
@@ -40,8 +40,8 @@ public class DumplingActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int currentTempura = MakiActivity.currentPlayer.getDumplings();
-                    MakiActivity.currentPlayer.setDumplings(currentTempura + Integer.parseInt(count.getText().toString()));
+                    int currentTempura = MainActivity.currentPlayer.getDumplings();
+                    MainActivity.currentPlayer.setDumplings(currentTempura + Integer.parseInt(count.getText().toString()));
                 }
                 viewMainActivity();
             }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/lblListHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:textSize="20dp"
+        android:textColor="#3366CC"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
+    <!--http://javapapers.com/android/android-expandable-listview/-->
+</LinearLayout>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="8dp"-->
+    <!--android:background="#3366CC">-->
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/lblListHeader"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"-->
+        <!--android:textSize="17dp"-->
+        <!--android:textColor="#f9f93d" />-->
+    <!--&lt;!&ndash;http://www.androidhive.info/2013/07/android-expandable-list-view-tutorial/&ndash;&gt;-->
+<!--</LinearLayout>-->

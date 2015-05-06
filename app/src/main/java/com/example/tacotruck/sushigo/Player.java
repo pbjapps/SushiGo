@@ -7,10 +7,9 @@ import java.util.Map;
  * Created by taco truck on 5/5/2015.
  */
 public class Player {
-//    public static Player player1 = null;
-//    public static Player player2 = null;
-    private static String name;
-    private static int makiRolls, tempura, sashimi, dumplings, puddings, squidNigiri, salmonNigiri, eggNigiri;
+    private String name;
+    private int makiRolls, tempura, sashimi, dumplings, puddings, squidNigiri, salmonNigiri, eggNigiri;
+    public Map<Integer, Integer> nigiriToWasabiMap = new HashMap<>();
     public static final Map<Integer, Integer> dumplingMap = new HashMap<Integer, Integer>(){
         {
             put(1,1);
@@ -20,6 +19,19 @@ public class Player {
             put(5,15);
         }
     };
+
+    public Player() {
+        name = "";
+        makiRolls = 0;
+        tempura = 0;
+        sashimi = 0;
+        dumplings = 0;
+        puddings = 0;
+        squidNigiri = 0;
+        salmonNigiri = 0;
+        eggNigiri = 0;
+        initializeNigiriToWasabiMap();
+    }
 
     public Player(String myname) {
         name = myname;
@@ -31,106 +43,98 @@ public class Player {
         squidNigiri = 0;
         salmonNigiri = 0;
         eggNigiri = 0;
+        initializeNigiriToWasabiMap();
     }
 
-//    public static void initializePlayers(){
-//        if(player1 == null){
-//            player1 = new Player("player1");
-//            nameToPlayer.put("player1", player1);
-//            System.out.println("created player 1...");
-//            System.out.println(player1.getName());
-//
-//            player2 = new Player("player2");
-//            nameToPlayer.put("player2", player2);
-//            System.out.println("created player 2...");
-//            System.out.println(player2.getName());
-//        }
-//        if(player2 == null){
-//            player2 = new Player("player2");
-//            nameToPlayer.put("player2", player2);
-//            System.out.println(player2.getName());
-//            System.out.println("creating player 2...");
-//        }
-//
-//        System.out.println(player1.getName() + " " + player2.getName());
-//    }
+    private void initializeNigiriToWasabiMap(){
+        nigiriToWasabiMap = new HashMap<>();
+        nigiriToWasabiMap.put(0,0);
+        nigiriToWasabiMap.put(1,0);
+        nigiriToWasabiMap.put(2,0);
+    }
 
-    public static String getName() {
+    public String getName() {
         return name;
     }
 
-    public static int getMakiRolls() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getMakiRolls() {
         return makiRolls;
     }
 
-    public static void setMakiRolls(int makiRolls) {
-        Player.makiRolls = makiRolls;
+    public void setMakiRolls(int makiRolls) {
+        this.makiRolls = makiRolls;
+        System.out.println(this.name + " makiRolls = " + this.makiRolls);
     }
 
-    public static int getTempura() {
+    public int getTempura() {
         return tempura;
     }
 
-    public static void setTempura(int tempura) {
-        Player.tempura = tempura;
+    public void setTempura(int tempura) {
+        this.tempura = tempura;
     }
 
-    public static int getSashimi() {
+    public int getSashimi() {
         return sashimi;
     }
 
-    public static void setSashimi(int sashimi) {
-        Player.sashimi = sashimi;
+    public void setSashimi(int sashimi) {
+        this.sashimi = sashimi;
     }
 
-    public static int getDumplings() {
+    public int getDumplings() {
         return dumplings;
     }
 
-    public static void setDumplings(int dumplings) {
-        Player.dumplings = dumplings;
+    public void setDumplings(int dumplings) {
+        this.dumplings = dumplings;
     }
 
-    public static int getPuddings() {
+    public int getPuddings() {
         return puddings;
     }
 
-    public static void setPuddings(int puddings) {
-        Player.puddings = puddings;
+    public void setPuddings(int puddings) {
+        this.puddings = puddings;
     }
 
-    public static int getSquidNigiri() {
+    public int getSquidNigiri() {
         return squidNigiri;
     }
 
-    public static void setSquidNigiri(int squidNigiri) {
-        Player.squidNigiri = squidNigiri;
+    public void setSquidNigiri(int squidNigiri) {
+        this.squidNigiri = squidNigiri;
     }
 
-    public static int getSalmonNigiri() {
+    public int getSalmonNigiri() {
         return salmonNigiri;
     }
 
-    public static void setSalmonNigiri(int salmonNigiri) {
-        Player.salmonNigiri = salmonNigiri;
+    public void setSalmonNigiri(int salmonNigiri) {
+        this.salmonNigiri = salmonNigiri;
     }
 
-    public static int getEggNigiri() {
+    public int getEggNigiri() {
         return eggNigiri;
     }
 
-    public static void setEggNigiri(int eggNigiri) {
-        Player.eggNigiri = eggNigiri;
+    public void setEggNigiri(int eggNigiri) {
+        this.eggNigiri = eggNigiri;
     }
 
-    public static void resetScore(Player playerx){
-        playerx.makiRolls = 0;
-        playerx.tempura = 0;
-        playerx.sashimi = 0;
-        playerx.dumplings = 0;
-        playerx.salmonNigiri = 0;
-        playerx.squidNigiri = 0;
-        playerx.eggNigiri = 0;
-        playerx.puddings = 0;
+    public void resetScore(){
+        this.makiRolls = 0;
+        this.tempura = 0;
+        this.sashimi = 0;
+        this.dumplings = 0;
+        this.salmonNigiri = 0;
+        this.squidNigiri = 0;
+        this.eggNigiri = 0;
+        this.puddings = 0;
+        initializeNigiriToWasabiMap();
     }
 }

@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 public class EggNigiriActivity extends Activity {
 
-    EditText count;
+    EditText count, wasabiCount;
     Button next;
 
     @Override
@@ -22,15 +22,13 @@ public class EggNigiriActivity extends Activity {
         setContentView(R.layout.activity_egg_nigiri);
 
         count = (EditText) findViewById(R.id.editText);
+        wasabiCount= (EditText) findViewById(R.id.editText2);
 
         next = (Button) findViewById(R.id.button4);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int currentTempura = MakiActivity.currentPlayer.getEggNigiri();
-                    MakiActivity.currentPlayer.setEggNigiri(currentTempura + Integer.parseInt(count.getText().toString()));
-                }
+                updateScore();
                 viewSashimiActivity();
             }
         });
@@ -39,13 +37,20 @@ public class EggNigiriActivity extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int currentTempura = MakiActivity.currentPlayer.getEggNigiri();
-                    MakiActivity.currentPlayer.setEggNigiri(currentTempura + Integer.parseInt(count.getText().toString()));
-                }
+                updateScore();
                 viewMainActivity();
             }
         });
+    }
+
+    public void updateScore(){
+        if (count.getText() != null && !count.getText().toString().isEmpty()) {
+            int currentTempura = MainActivity.currentPlayer.getEggNigiri();
+            MainActivity.currentPlayer.setEggNigiri(currentTempura + Integer.parseInt(count.getText().toString()));
+            if(wasabiCount.getText() != null && !wasabiCount.getText().toString().isEmpty()){
+                MainActivity.currentPlayer.nigiriToWasabiMap.put(2, Integer.parseInt(wasabiCount.getText().toString()));
+            }
+        }
     }
 
     @Override

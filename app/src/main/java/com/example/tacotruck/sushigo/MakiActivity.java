@@ -13,7 +13,6 @@ import android.widget.EditText;
 
 public class MakiActivity extends Activity {
 
-    public static Player currentPlayer;
     Button next;
     EditText count;
 
@@ -22,11 +21,7 @@ public class MakiActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maki);
 
-        Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        System.out.println("name = " + name);
-        currentPlayer = (Player) MainActivity.nameToPlayer.get(name);
-        System.out.println("currentPlayer = " + currentPlayer.getName());
+        System.out.println("currentPlayer = " + MainActivity.currentPlayer.getName());
 
         count = (EditText) findViewById(R.id.editText);
 
@@ -35,8 +30,8 @@ public class MakiActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if(count.getText() != null && !count.getText().toString().isEmpty()){
-                    int currentMaki = currentPlayer.getMakiRolls();
-                    currentPlayer.setMakiRolls(currentMaki + Integer.parseInt(count.getText().toString()));
+                    int currentMaki = MainActivity.currentPlayer.getMakiRolls();
+                    MainActivity.currentPlayer.setMakiRolls(currentMaki + Integer.parseInt(count.getText().toString()));
                 }
                 viewTempuraActivity();
             }
@@ -47,8 +42,8 @@ public class MakiActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if(count.getText() != null && !count.getText().toString().isEmpty()){
-                    int currentMaki = currentPlayer.getMakiRolls();
-                    currentPlayer.setMakiRolls(currentMaki + Integer.parseInt(count.getText().toString()));
+                    int currentMaki = MainActivity.currentPlayer.getMakiRolls();
+                    MainActivity.currentPlayer.setMakiRolls(currentMaki + Integer.parseInt(count.getText().toString()));
                 }
                 viewMainActivity();
             }

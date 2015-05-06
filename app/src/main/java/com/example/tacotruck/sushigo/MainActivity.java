@@ -18,9 +18,10 @@ import java.util.HashMap;
 public class MainActivity extends Activity {
 
     private Button player1, player2, score;
-    public static Player p1 = null;
-    public static Player p2 = null;
-    private boolean isPlayer1;
+    public static Player currentPlayer;
+    public Player p1 = null;
+    public Player p2 = null;
+    //private boolean isPlayer1;
     public static final HashMap nameToPlayer = new HashMap<String, Player>();
 
     @Override
@@ -32,33 +33,43 @@ public class MainActivity extends Activity {
         player2 = (Button) findViewById(R.id.button2);
         score = (Button) findViewById(R.id.button3);
 
-        initializeP1();
-        //initializeP2();
+        initializePlayers();
 
         player1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("Player ONE was clicked");
-                viewMakiActivity(p1);
+                currentPlayer = (Player) nameToPlayer.get("player1");
+                viewMakiActivity();
             }
         });
 
         player1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                isPlayer1 = true;
+                currentPlayer = p1;
                 chooseCardType();
                 return false;
             }
         });
 
-//        player2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                System.out.println("Player TWO was cliecked");
-//                viewMakiActivity(p2);
-//            }
-//        });
+        player2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Player TWO was cliecked");
+                currentPlayer = p2;
+                viewMakiActivity();
+            }
+        });
+
+        player2.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                currentPlayer = p2;
+                chooseCardType();
+                return false;
+            }
+        });
 
         score.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,10 +109,8 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void viewMakiActivity(Player playerx){
+    public void viewMakiActivity(){
         Intent myIntent = new Intent(MainActivity.this, MakiActivity.class);
-        System.out.println("sending extra: name => " + playerx.getName());
-        myIntent.putExtra("name", playerx.getName());
         MainActivity.this.startActivity(myIntent);
     }
 
@@ -133,13 +142,6 @@ public class MainActivity extends Activity {
                 myIntent = new Intent(MainActivity.this, PuddingActivity.class);
                 break;
         }
-        if(isPlayer1){
-            myIntent.putExtra("name", "player1");
-        }
-        else{
-//            myIntent.putExtra("name", player2.getName());
-        }
-
         MainActivity.this.startActivity(myIntent);
     }
 
@@ -148,33 +150,22 @@ public class MainActivity extends Activity {
         MainActivity.this.startActivity(myIntent);
     }
 
-//    private void initializePlayers(){
-//        if(p1 == null){
-//            p1 = new Player("player1");
-//            nameToPlayer.put("player1", p1);
-//        }
-//        if(p2 == null){
-//            p2 = new Player("player2");
-//            nameToPlayer.put("player2", p2);
-//        }
-//    }
-
-    private void initializeP1(){
+    private void initializePlayers(){
         if(p1 == null){
             p1 = new Player("player1");
             nameToPlayer.put("player1", p1);
+            System.out.println("intitialized " + p1.getName());
         }
-    }
-
-    private void initializeP2(){
         if(p2 == null){
             p2 = new Player("player2");
-            nameToPlayer.put("player2", p2);
+            nameToPlayer.put(p2.getName(), p2);
+            System.out.println("intitialized " + p2.getName());
         }
     }
 
     private void resetScores(){
-        Player.resetScore(p1);
+        p1.resetScore();
+        p2.resetScore();
         Toast.makeText(MainActivity.this, "Scores have been reset!", Toast.LENGTH_SHORT).show();
     }
 

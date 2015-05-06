@@ -28,8 +28,8 @@ public class PuddingActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int currentTempura = MakiActivity.currentPlayer.getPuddings();
-                    MakiActivity.currentPlayer.setPuddings(currentTempura + Integer.parseInt(count.getText().toString()));
+                    int currentTempura = MainActivity.currentPlayer.getPuddings();
+                    MainActivity.currentPlayer.setPuddings(currentTempura + Integer.parseInt(count.getText().toString()));
                 }
                 viewSashimiActivity();
             }
@@ -40,8 +40,8 @@ public class PuddingActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int currentTempura = MakiActivity.currentPlayer.getPuddings();
-                    MakiActivity.currentPlayer.setPuddings(currentTempura + Integer.parseInt(count.getText().toString()));
+                    int currentTempura = MainActivity.currentPlayer.getPuddings();
+                    MainActivity.currentPlayer.setPuddings(currentTempura + Integer.parseInt(count.getText().toString()));
                 }
                 viewMainActivity();
             }

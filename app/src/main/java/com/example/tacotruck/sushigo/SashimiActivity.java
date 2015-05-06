@@ -28,8 +28,8 @@ public class SashimiActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int current = MakiActivity.currentPlayer.getSashimi();
-                    MakiActivity.currentPlayer.setSashimi(current+ Integer.parseInt(count.getText().toString()));
+                    int current = MainActivity.currentPlayer.getSashimi();
+                    MainActivity.currentPlayer.setSashimi(current+ Integer.parseInt(count.getText().toString()));
                 }
                 viewSashimiActivity();
             }
@@ -40,8 +40,8 @@ public class SashimiActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int current = MakiActivity.currentPlayer.getSashimi();
-                    MakiActivity.currentPlayer.setSashimi(current+ Integer.parseInt(count.getText().toString()));
+                    int current = MainActivity.currentPlayer.getSashimi();
+                    MainActivity.currentPlayer.setSashimi(current+ Integer.parseInt(count.getText().toString()));
                 }
                 viewMainActivity();
             }
