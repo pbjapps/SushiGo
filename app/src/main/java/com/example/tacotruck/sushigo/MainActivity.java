@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 
 public class MainActivity extends Activity {
 
-    private Button player1, player2, score;
+    private Button player1, player2, score, info;
     public static Player currentPlayer;
     public Player p1 = null;
     public Player p2 = null;
@@ -32,6 +33,7 @@ public class MainActivity extends Activity {
         player1 = (Button) findViewById(R.id.button);
         player2 = (Button) findViewById(R.id.button2);
         score = (Button) findViewById(R.id.button3);
+        info = (Button) findViewById(R.id.infoButton);
 
         initializePlayers();
 
@@ -83,6 +85,13 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 resetScores();
+            }
+        });
+
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showInfo();
             }
         });
     }
@@ -186,6 +195,27 @@ public class MainActivity extends Activity {
                         dialog.dismiss();
                     }
                 })
-            .show();
+                .show();
+    }
+
+    public void showInfo(){
+        String instructions  =  "<b>Maki:</b> most 6, second 3, split ties<br>" +
+                "<b>Tempura:</b> set of 2: 5, otherwise 0<br>" +
+                "<b>Sashimi:</b> set of 3: 10, otherwise 0<br>" +
+                "<b>Dumplings:</b> 1: 1, 2: 3, 3: 6, 4: 10, 5+: 15<br>" +
+                "<b>Nigiri:</b> squid 3, salmon 2, egg, 1<br>" +
+                "<b>Wasabi:</b> triples value of nigiri<br>" +
+                "<b>Chopsticks:</b> swap for 2 cards<br>" +
+                "<b>Puddings:</b> most at game end 6, least -6, split ties";
+        new AlertDialog.Builder(this)
+                .setTitle(Html.fromHtml("<h1>Scoring Info</h1>"))
+                .setMessage(Html.fromHtml(instructions))
+                .setNegativeButton("Got it!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 }
