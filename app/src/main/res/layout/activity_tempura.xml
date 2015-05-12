@@ -18,7 +18,7 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="500px"
+        android:layout_height="600px"
         android:id="@+id/imageView"
         android:src="@drawable/tempura"
         android:layout_below="@+id/textView"
@@ -40,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next"
+        android:textSize="20dp"
         android:id="@+id/button4"
         android:textColor="#C4C4D0"
         android:layout_alignParentBottom="true"
@@ -51,14 +52,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Done"
+        android:textSize="20dp"
         android:id="@+id/button7"
         android:background="@drawable/rounded_button_states"
         android:minWidth="100dp"
         android:textColor="#C4C4D0"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/textView"
         android:onClick="viewMainActivity"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/button4"
+        android:layout_alignParentStart="true" />
 
     <NumberPicker
         android:layout_width="wrap_content"

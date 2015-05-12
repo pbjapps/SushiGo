@@ -14,7 +14,6 @@ import android.widget.NumberPicker;
 
 public class PuddingActivity extends Activity {
 
-    EditText count;
     Button next;
     NumberPicker nCount;
 
@@ -23,7 +22,6 @@ public class PuddingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pudding);
 
-        count = (EditText) findViewById(R.id.editText);
         nCount = (NumberPicker) findViewById(R.id.numberPicker);
         nCount.setMaxValue(10);
         nCount.setMinValue(0);
