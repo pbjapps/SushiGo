@@ -1,8 +1,11 @@
 package com.example.tacotruck.sushigo;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,6 +27,7 @@ public class ScoresActivity extends Activity {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    Button outcome;
     int p1total = 0;
     int p2total = 0;
 //    http://www.androidhive.info/2013/07/android-expandable-list-view-tutorial/
@@ -58,6 +63,15 @@ public class ScoresActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "Scores have been reset!", Toast.LENGTH_SHORT).show();
             }
         });
+
+        outcome = (Button) findViewById(R.id.button9);
+        outcome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //calculate final score
+                showResults();
+            }
+        });
     }
 
     @Override
@@ -85,7 +99,7 @@ public class ScoresActivity extends Activity {
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding child data
-        listDataHeader.add("Player 1 Round 1, total = " + p1r1Totals.get("total") );
+        listDataHeader.add("Player 1 Round 1, total = " + p1r1Totals.get("total"));
         listDataHeader.add("Player 2 Round 1, total = " + p2r1Totals.get("total"));
         listDataChild.put(listDataHeader.get(0), populateData(p1r1Totals));
         listDataChild.put(listDataHeader.get(1), populateData(p2r1Totals));
@@ -104,16 +118,78 @@ public class ScoresActivity extends Activity {
             if(p1r3 != null && p2r3 != null){
                 p1r3Totals = calculateTotal(p1r3, p2r3);
                 p2r3Totals = calculateTotal(p2r3, p1r3);
-                //calculate pudding totals
-                calculatePuddingPoints(p1r3, p1r2, p1r1, p2r3, p2r2, p2r1, p1r3Totals);
-                calculatePuddingPoints(p2r3, p2r2, p2r1, p1r3, p1r2, p1r1, p2r3Totals);
-
                 listDataHeader.add("Player 1 Round 3, total = " + p1r3Totals.get("total") );
                 listDataHeader.add("Player 2 Round 3, total = " + p2r3Totals.get("total"));
                 listDataChild.put(listDataHeader.get(4), populateData(p1r3Totals));
                 listDataChild.put(listDataHeader.get(5), populateData(p2r3Totals));
             }
         }
+    }
+
+    public void showResults() {
+        if (MainActivity.roundCount == 3) {
+            HashMap<String, List<String>> results = finalScore();
+            String result = "";
+            for (String s : results.get(results.keySet().toArray()[0])) {
+                result = result + s + "\n";
+            }
+
+            new AlertDialog.Builder(this)
+                    .setTitle(Html.fromHtml("<h1>" + results.keySet().toArray()[0] + "</h1>"))
+                    .setMessage(result)
+                    .setNegativeButton("Got it!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+        }
+        else{
+            Toast.makeText(this, "The game isn't over yet!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public HashMap<String, List<String>> finalScore(){
+        HashMap<String, List<String>> results = new HashMap<>();
+           Player p1r1 = (Player) MainActivity.nameToPlayer.get("p1r1");
+           Player p2r1 = (Player) MainActivity.nameToPlayer.get("p2r1");
+           Player p1r2 = (Player) MainActivity.nameToPlayer.get("p1r2");
+           Player p2r2 = (Player) MainActivity.nameToPlayer.get("p2r2");
+           Player p1r3 = (Player) MainActivity.nameToPlayer.get("p1r3");
+           Player p2r3 = (Player) MainActivity.nameToPlayer.get("p2r3");
+
+           HashMap<String, Integer> p1r1Totals = calculateTotal(p1r1, p2r1);
+           HashMap<String, Integer> p2r1Totals = calculateTotal(p2r1, p1r1);
+           HashMap<String, Integer> p1r2Totals = calculateTotal(p1r2, p2r2);
+           HashMap<String, Integer> p2r2Totals = calculateTotal(p2r2, p1r2);
+           HashMap<String, Integer> p1r3Totals = calculateTotal(p1r3, p2r3);
+           HashMap<String, Integer> p2r3Totals = calculateTotal(p2r3, p1r3);
+
+           //calculate pudding bonus points
+           calculatePuddingPoints(p1r3, p1r2, p1r1, p2r3, p2r2, p2r1, p1r3Totals);
+           calculatePuddingPoints(p2r3, p2r2, p2r1, p1r3, p1r2, p1r1, p2r3Totals);
+
+           //calculate the total and do the final scores
+           int p1FinalScore = p1r1Totals.get("total") + p1r2Totals.get("total") + p1r3Totals.get("total") + p1r3Totals.get("ppoints");
+           int p2FinalScore = p2r1Totals.get("total") + p2r2Totals.get("total") + p2r3Totals.get("total") + p2r3Totals.get("ppoints");
+           String winner = "";
+           if(p1FinalScore > p2FinalScore){
+               winner = "WINNER = Player 1";
+           }
+           else if ( p2FinalScore > p1FinalScore ){
+               winner = "WINNER = Player 2";
+           }
+           else{
+               winner = "TIE!";
+           }
+           //listDataHeader.add(winner);
+           //listDataChild.put(listDataHeader.get(6), Arrays.asList("Player 1: " + p1FinalScore, "\tpudding bonus: " + p1r3Totals.get("ppoints"), "Player 2: " + p2FinalScore,
+           //        "\tpudding bonus: " + p2r3Totals.get("ppoints")));
+
+           results.put(winner, Arrays.asList("Player 1: " + p1FinalScore, "\tpudding bonus: " + p1r3Totals.get("ppoints"), "Player 2: " + p2FinalScore, "\tpudding bonus: " + p2r3Totals.get("ppoints")));
+        return results;
     }
 
     public List<String> populateData(HashMap<String, Integer> totals){
@@ -132,11 +208,6 @@ public class ScoresActivity extends Activity {
         playerData.add("Salmon Nigiri: " + totals.get("salpoints"));
         //*1, *3 for wasabi
         playerData.add("Egg Nigiri: " + totals.get("eggpoints"));
-
-        if(MainActivity.roundCount == 3){
-            //most = 6, least = -6, split ties
-            playerData.add("Pudding: " + totals.get("ppoints"));
-        }
         return playerData;
     }
 
@@ -193,23 +264,20 @@ public class ScoresActivity extends Activity {
     public void calculatePuddingPoints(Player p1r1, Player p1r2, Player p1r3, Player p2r1, Player p2r2, Player p2r3, HashMap<String, Integer> p1r3Totals){
         int p1Pudding = p1r1.getPuddings() + p1r2.getPuddings() + p1r3.getPuddings();
         int p2Pudding = p2r1.getPuddings() + p2r2.getPuddings() + p2r3.getPuddings();
-        int r3Total = p1r3Totals.get("total");
+        System.out.println("p1Pudding = " + p1Pudding);
+        System.out.println("p2Pudding = " + p2Pudding);
         if(p1Pudding > p2Pudding){
-            r3Total = r3Total + 6;
             p1r3Totals.put("ppoints", 6);
         }
         else if(p1Pudding != 0 && p1Pudding == p2Pudding){
-            r3Total = r3Total + 3;
             p1r3Totals.put("ppoints", 3);
         }
-        else if (p1Pudding != 0){
-            r3Total = r3Total - 6;
-            p1r3Totals.put("ppoints", -6);
-        }
-        else{
+        else if(p1Pudding == 0 && p1Pudding == p2Pudding){
             p1r3Totals.put("ppoints", 0);
         }
-        p1r3Totals.put("total", r3Total);
+        else{
+            p1r3Totals.put("ppoints", -6);
+        }
     }
 
     public int calculateNigiriTotal(int nigiriCount, int wasabiCount, int mult){
