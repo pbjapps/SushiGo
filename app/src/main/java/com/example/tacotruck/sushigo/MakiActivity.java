@@ -9,12 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 
 
 public class MakiActivity extends Activity {
 
     Button next;
     EditText count;
+    NumberPicker nCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +26,16 @@ public class MakiActivity extends Activity {
         System.out.println("currentPlayer = " + MainActivity.currentPlayer.getName());
 
         count = (EditText) findViewById(R.id.editText);
+        nCount = (NumberPicker) findViewById(R.id.numberPicker);
+        nCount.setMaxValue(10);
+        nCount.setMinValue(0);
 
         next = (Button) findViewById(R.id.button4);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(count.getText() != null && !count.getText().toString().isEmpty()){
-                    int currentMaki = MainActivity.currentPlayer.getMakiRolls();
-                    MainActivity.currentPlayer.setMakiRolls(currentMaki + Integer.parseInt(count.getText().toString()));
-                }
+                int currentMaki = MainActivity.currentPlayer.getMakiRolls();
+                MainActivity.currentPlayer.setMakiRolls(currentMaki + nCount.getValue());
                 viewTempuraActivity();
             }
         });
@@ -41,10 +44,8 @@ public class MakiActivity extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(count.getText() != null && !count.getText().toString().isEmpty()){
-                    int currentMaki = MainActivity.currentPlayer.getMakiRolls();
-                    MainActivity.currentPlayer.setMakiRolls(currentMaki + Integer.parseInt(count.getText().toString()));
-                }
+                int currentMaki = MainActivity.currentPlayer.getMakiRolls();
+                MainActivity.currentPlayer.setMakiRolls(currentMaki + nCount.getValue());
                 viewMainActivity();
             }
         });

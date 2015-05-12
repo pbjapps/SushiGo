@@ -9,12 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 
 
 public class DumplingActivity extends Activity {
 
     EditText count;
     Button next;
+    NumberPicker nCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +24,17 @@ public class DumplingActivity extends Activity {
         setContentView(R.layout.activity_dumpling);
 
         count = (EditText) findViewById(R.id.editText);
+        nCount = (NumberPicker) findViewById(R.id.numberPicker);
+        nCount.setMaxValue(10);
+        nCount.setMinValue(0);
+
 
         next = (Button) findViewById(R.id.button4);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int currentTempura = MainActivity.currentPlayer.getDumplings();
-                    MainActivity.currentPlayer.setDumplings(currentTempura + Integer.parseInt(count.getText().toString()));
-                }
+                int currentTempura = MainActivity.currentPlayer.getDumplings();
+                MainActivity.currentPlayer.setDumplings(currentTempura + nCount.getValue());
                 viewSashimiActivity();
             }
         });
@@ -39,10 +43,8 @@ public class DumplingActivity extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int currentTempura = MainActivity.currentPlayer.getDumplings();
-                    MainActivity.currentPlayer.setDumplings(currentTempura + Integer.parseInt(count.getText().toString()));
-                }
+                int currentTempura = MainActivity.currentPlayer.getDumplings();
+                MainActivity.currentPlayer.setDumplings(currentTempura + nCount.getValue());
                 viewMainActivity();
             }
         });

@@ -9,12 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 
 
 public class TempuraActivity extends Activity {
 
     Button next;
     EditText count;
+    NumberPicker nCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +24,16 @@ public class TempuraActivity extends Activity {
         setContentView(R.layout.activity_tempura);
 
         count = (EditText) findViewById(R.id.editText);
+        nCount = (NumberPicker) findViewById(R.id.numberPicker);
+        nCount.setMaxValue(10);
+        nCount.setMinValue(0);
 
         next = (Button) findViewById(R.id.button4);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int currentTempura = MainActivity.currentPlayer.getTempura();
-                    MainActivity.currentPlayer.setTempura(currentTempura+ Integer.parseInt(count.getText().toString()));
-                }
+                int currentTempura = MainActivity.currentPlayer.getTempura();
+                MainActivity.currentPlayer.setTempura(currentTempura + nCount.getValue());
                 viewSashimiActivity();
             }
         });
@@ -39,10 +42,8 @@ public class TempuraActivity extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int currentTempura = MainActivity.currentPlayer.getTempura();
-                    MainActivity.currentPlayer.setTempura(currentTempura+ Integer.parseInt(count.getText().toString()));
-                }
+                int currentTempura = MainActivity.currentPlayer.getTempura();
+                MainActivity.currentPlayer.setTempura(currentTempura+ nCount.getValue());
                 viewMainActivity();
             }
         });

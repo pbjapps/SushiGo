@@ -3,7 +3,7 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#99CCFF"
+    android:background="#C6E2FF"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.tacotruck.sushigo.TempuraActivity">
 
@@ -18,21 +18,22 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="500px"
         android:id="@+id/imageView"
         android:src="@drawable/tempura"
-        android:layout_above="@+id/editText"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="76dp" />
+        android:layout_marginTop="20dp" />
+
+    <!--<EditText-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="number"-->
+        <!--android:ems="10"-->
+        <!--android:id="@+id/editText"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="76dp" />-->
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -56,6 +57,14 @@
         android:textColor="#C4C4D0"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textView"
-        android:onClick="viewMainActivity"/>
+        android:onClick="viewMainActivity"
+        android:layout_centerHorizontal="true" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/numberPicker"
+        android:layout_above="@+id/button7"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -9,11 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 
 
 public class SalmonNigiriActivity extends Activity {
 
-    EditText count, wasabiCount;
+    NumberPicker count, wasabiCount;
     Button next;
 
     @Override
@@ -21,8 +22,13 @@ public class SalmonNigiriActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_salmon_nigiri);
 
-        count = (EditText) findViewById(R.id.editText);
-        wasabiCount= (EditText) findViewById(R.id.editText2);
+        count = (NumberPicker) findViewById(R.id.editText);
+        count.setMaxValue(10);
+        count.setMinValue(0);
+
+        wasabiCount= (NumberPicker) findViewById(R.id.editText2);
+        wasabiCount.setMaxValue(10);
+        wasabiCount.setMinValue(0);
 
         next = (Button) findViewById(R.id.button4);
         next.setOnClickListener(new View.OnClickListener() {
@@ -44,13 +50,9 @@ public class SalmonNigiriActivity extends Activity {
     }
 
     public void updateScore(){
-        if (count.getText() != null && !count.getText().toString().isEmpty()) {
             int currentTempura = MainActivity.currentPlayer.getSalmonNigiri();
-            MainActivity.currentPlayer.setSalmonNigiri(currentTempura + Integer.parseInt(count.getText().toString()));
-            if(wasabiCount.getText() != null && !wasabiCount.getText().toString().isEmpty()){
-                MainActivity.currentPlayer.nigiriToWasabiMap.put(1, Integer.parseInt(wasabiCount.getText().toString()));
-            }
-        }
+            MainActivity.currentPlayer.setSalmonNigiri(currentTempura + count.getValue());
+            MainActivity.currentPlayer.nigiriToWasabiMap.put(1, wasabiCount.getValue());
     }
 
     @Override

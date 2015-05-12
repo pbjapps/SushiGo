@@ -9,12 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 
 
 public class SashimiActivity extends Activity {
 
     EditText count;
     Button next;
+    NumberPicker nCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +24,16 @@ public class SashimiActivity extends Activity {
         setContentView(R.layout.activity_sashimi);
 
         count = (EditText) findViewById(R.id.editText);
+        nCount = (NumberPicker) findViewById(R.id.numberPicker);
+        nCount.setMaxValue(10);
+        nCount.setMinValue(0);
 
         next = (Button) findViewById(R.id.button4);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int current = MainActivity.currentPlayer.getSashimi();
-                    MainActivity.currentPlayer.setSashimi(current+ Integer.parseInt(count.getText().toString()));
-                }
+                int current = MainActivity.currentPlayer.getSashimi();
+                MainActivity.currentPlayer.setSashimi(current+ nCount.getValue());
                 viewSashimiActivity();
             }
         });
@@ -39,10 +42,8 @@ public class SashimiActivity extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count.getText() != null && !count.getText().toString().isEmpty()) {
-                    int current = MainActivity.currentPlayer.getSashimi();
-                    MainActivity.currentPlayer.setSashimi(current+ Integer.parseInt(count.getText().toString()));
-                }
+                int current = MainActivity.currentPlayer.getSashimi();
+                MainActivity.currentPlayer.setSashimi(current+ nCount.getValue());
                 viewMainActivity();
             }
         });

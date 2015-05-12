@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
@@ -13,17 +12,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class MainActivity extends Activity {
 
     private Button player1, player2, score, info;
     public static Player currentPlayer;
-    public Player p1 = null;
-    public Player p2 = null;
+    public Player p1r1 = null;
+    public Player p2r1 = null;
+    public Player p1r2 = null;
+    public Player p2r2 = null;
+    public Player p1r3 = null;
+    public Player p2r3 = null;
+    public static int roundCount = 1;
+
     //private boolean isPlayer1;
     public static final HashMap nameToPlayer = new HashMap<String, Player>();
+    //public static ArrayList<Player> initializedPlayers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +43,19 @@ public class MainActivity extends Activity {
         player2 = (Button) findViewById(R.id.button2);
         score = (Button) findViewById(R.id.button3);
         info = (Button) findViewById(R.id.infoButton);
+        roundCount = 1;
 
-        initializePlayers();
+        //initialize all players
+        ArrayList<Player> players = new ArrayList<> (Arrays.asList(p1r1, p2r1, p1r2, p2r2, p1r3, p2r3));
+        ArrayList<String> playerNames= new ArrayList<>(Arrays.asList("p1r1", "p2r1", "p1r2", "p2r2", "p1r3", "p2r3"));
+        initializePlayers(players, playerNames);
 
         player1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //based on roundcount
                 System.out.println("Player ONE was clicked");
-                currentPlayer = (Player) nameToPlayer.get("player1");
+                currentPlayer = (Player) nameToPlayer.get("p1r" + roundCount);
                 viewMakiActivity();
             }
         });
@@ -49,7 +63,7 @@ public class MainActivity extends Activity {
         player1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                currentPlayer = p1;
+                currentPlayer = (Player) nameToPlayer.get("p1r" + roundCount);
                 chooseCardType();
                 return false;
             }
@@ -59,7 +73,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 System.out.println("Player TWO was cliecked");
-                currentPlayer = p2;
+                currentPlayer = (Player) nameToPlayer.get("p2r" + roundCount);
                 viewMakiActivity();
             }
         });
@@ -67,7 +81,7 @@ public class MainActivity extends Activity {
         player2.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                currentPlayer = p2;
+                currentPlayer = (Player) nameToPlayer.get("p2r" + roundCount);
                 chooseCardType();
                 return false;
             }
@@ -80,11 +94,11 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button reset = (Button) findViewById(R.id.button6);
-        reset.setOnClickListener(new View.OnClickListener() {
+        Button newRound = (Button) findViewById(R.id.button6);
+        newRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetScores();
+                startNewRound();
             }
         });
 
@@ -94,6 +108,24 @@ public class MainActivity extends Activity {
                 showInfo();
             }
         });
+    }
+
+    public static void resetScores(){
+        for(Object p : nameToPlayer.values()){
+            Player playerP = (Player) p;
+            playerP.resetScore();
+        }
+        roundCount = 1;
+    }
+
+    private void startNewRound(){
+        if(roundCount < 3){
+            roundCount++;
+            Toast.makeText(MainActivity.this, "Started ROUND " + roundCount + "!", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(MainActivity.this, "Already on ROUND 3!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -159,23 +191,15 @@ public class MainActivity extends Activity {
         MainActivity.this.startActivity(myIntent);
     }
 
-    private void initializePlayers(){
-        if(p1 == null){
-            p1 = new Player("player1");
-            nameToPlayer.put("player1", p1);
-            System.out.println("intitialized " + p1.getName());
+//    private void initializePlayers(Player p1, Player p2){
+    private void initializePlayers(List<Player> players, List<String> playerNames){
+//        for(Player p : players){
+        for(int i = 0; i < players.size(); i++){
+            Player p = players.get(i);
+            p = new Player(playerNames.get(i));
+            nameToPlayer.put(p.getName(), p);
+            System.out.println("intitialized " + p.getName());
         }
-        if(p2 == null){
-            p2 = new Player("player2");
-            nameToPlayer.put(p2.getName(), p2);
-            System.out.println("intitialized " + p2.getName());
-        }
-    }
-
-    private void resetScores(){
-        p1.resetScore();
-        p2.resetScore();
-        Toast.makeText(MainActivity.this, "Scores have been reset!", Toast.LENGTH_SHORT).show();
     }
 
     public void chooseCardType(){
